@@ -1,7 +1,7 @@
 var juickTag;
 var juickPage;
 
-function juickInit(uid) {
+function juickInit(uname) {
   var message=juickGetHashVar("message");
   juickTag=juickGetHashVar("tag");
   juickPage=juickGetHashVar("page");
@@ -21,7 +21,7 @@ function juickInit(uid) {
     var url="http://api.juick.com/thread?mid="+message+"&callback=juickParseThread";
     juickLoadScript(url);
   } else {
-    var url="http://api.juick.com/messages?user_id="+uid;
+    var url="http://api.juick.com/messages?uname="+uname;
     if(juickTag && juickTag!='') url+="&tag="+encodeURI(juickTag);
     if(juickPage && juickPage>0) url+="&page="+juickPage;
     url+="&callback=juickParseMessages";
