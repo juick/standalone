@@ -43,7 +43,14 @@ function juickParseMessages(json) {
 
     var ts=json[i].timestamp.split(/[\-\s]/);
     var date=new Date(ts[0],ts[1]-1,ts[2]);
-    var ihtml='<div class="date"><div class="day">'+date.getDate()+'</div><div class="month">'+date.getMonthName()+'</div></div>';
+    var ihtml='<div class="date"><div class="day">'+date.getDate()+'</div><div class="month">'+date.getMonthName()+'</div><div class="year">'+(1900+date.getYear())+'</div></div>';
+
+    if(json[i].tags) {
+      ihtml+='<div><ul class="tags">';
+      for(var n=0; n<json[i].tags.length; n++)
+        ihtml+='<li><a href="#tag='+json[i].tags[n]+'">'+json[i].tags[n]+'</a></li>';
+      ihtml+='</ul></div>';
+    }
     
     ihtml+='<div class="text">';
     if(json[i].photo)
@@ -55,12 +62,7 @@ function juickParseMessages(json) {
     ihtml+=juickFormatText(json[i].body);
     ihtml+='</div>';
     
-    if(json[i].tags) {
-      ihtml+='<ul class="tags">';
-      for(var n=0; n<json[i].tags.length; n++)
-        ihtml+='<li><a href="#tag='+json[i].tags[n]+'">'+json[i].tags[n]+'</a></li>';
-      ihtml+='</ul>';
-    }
+    
 
     var replies=json[i].replies;
     if(!replies) replies=0;
@@ -126,7 +128,77 @@ function juickGetHashVar(variable) {
 }
 
 function juickFormatText(txt) {
-  txt=txt.replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;");
+  console.log(txt);
+  //txt=txt.replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;");
   txt=txt.replace(/\n/g,"<br/>");
+  txt = urlify(txt);
   return txt;
+}
+
+function is_img(url){
+  var imgRegex = /\.(jpg|png|gif|jpeg|svg)(?:.large)?$/;
+  return imgRegex.test(url);
+}
+
+function classify(url){
+  if (is_img(url)){
+    return 'image'
+  } else if (/(youtube|youtu).(com|be)/.test(url)){
+    console.log('Return youtube: ', url)
+    return 'youtube'
+  } else if (/vimeo.com/.test(url)){
+    return 'vimeo'
+  } else if (/gifv$/.test(url)) {
+    return 'embed_video'
+  } else if (/coub.com/.test(url)){
+    return 'coub'
+  } else {
+    return 'other'
+  }
+}
+
+function get_youtubeid(url){
+  
+  if (url.indexOf('youtube.com') >= 0){
+    var video_id = url.split('v=')[1];
+    
+  } else if (url.indexOf('youtu.be') >= 0) {
+    var s = url.split('/');
+    var video_id = s[s.length-1];
+  }
+  if (!video_id){ return };
+  var ampersandPosition = video_id.indexOf('&');
+  if(ampersandPosition != -1) {
+    video_id = video_id.substring(0, ampersandPosition);
+  }
+  return video_id
+}
+
+function urlify(text) {
+  var adimumUrlRegex = /<((https?|ftp)(:\/\/[^\s()<>]+))>/g;
+  if (adimumUrlRegex.test(text)){
+    text = text.replace(adimumUrlRegex, function(_, inner){
+      return ' '+inner+' '
+    });
+  }
+  var urlRegex = /(https?|ftp)(:\/\/[^\s()<>]+)/g;
+  
+  return text.replace(urlRegex, function(url) {
+    var cls = classify(url);
+    if (cls == 'image'){
+      return '<a class="a_pic" href="' + url + '">' + '<img src="'+url+'"style="position: relative; margin: auto; max-width: 800px"/></a>';
+    } else if (cls == 'youtube' && get_youtubeid(url)){
+      var yid = get_youtubeid(url);
+      return '<iframe id="ytplayer" type="text/html" width="800" height="490" src="http://www.youtube.com/embed/'+yid+'" frameborder="0"/>';
+    } else if (cls == 'coub') {
+      var u = url.replace('view', 'embed')
+      return '<iframe src="'+u+'?muted=false&autostart=false&originalSize=false&hideTopBar=false&startWithHD=false" allowfullscreen="true" frameborder="0" width="800" height="490"></iframe>';
+      
+    } else if (cls == 'vimeo') {
+      var vid = url.match(/\/(\d+)$/)[1];
+      return '<iframe src="https://player.vimeo.com/video/'+vid+'" width="800" height="490" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+    }else {
+      return '<a class="a_other" href="' + url + '">'+decodeURIComponent(url)+'</a>';
+    }
+  })
 }
