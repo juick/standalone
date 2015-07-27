@@ -34,7 +34,7 @@ function juickLoadScript(src) {
   scripttag.setAttribute("type","text/javascript");
   scripttag.setAttribute("src",src);
   scripttag.setAttribute("class","loadScript");
-  document.getElementsByTagName("head")[0].appendChild(scripttag); 
+  document.getElementsByTagName("head")[0].appendChild(scripttag);
 }
 
 function juickParseMessages(json) {
@@ -51,7 +51,7 @@ function juickParseMessages(json) {
         ihtml+='<li><a href="#tag='+json[i].tags[n]+'">'+json[i].tags[n]+'</a></li>';
       ihtml+='</ul></div>';
     }
-    
+
     ihtml+='<div class="text">';
     if(json[i].photo)
       ihtml+='<div class="photo"><a href="'+json[i].photo.medium+'"><img src="'+json[i].photo.small+'" alt="Photo"/></a></div>';
@@ -61,8 +61,8 @@ function juickParseMessages(json) {
       ihtml+='<b>Location:</b> <a href="/places/'+json[i].location.place_id+'">'+json[i].location.name+'</a><br/>';
     ihtml+=juickFormatText(json[i].body);
     ihtml+='</div>';
-    
-    
+
+
 
     var replies=json[i].replies;
     if(!replies) replies=0;
@@ -72,7 +72,7 @@ function juickParseMessages(json) {
     li.innerHTML=ihtml;
     msgs.appendChild(li);
   }
-  
+
   var nav="";
   if(juickPage && juickPage>1) {
     nav+='<a href="#';
@@ -102,7 +102,7 @@ function juickParseThread(json) {
   for(var i=1; i<json.length; i++) {
 
     var ihtml='<div class="username"><a href="http://juick.com/'+json[i].user.uname+'/">@'+json[i].user.uname+'</a>:</div>';
-    
+
     ihtml+='<div class="text">';
     if(json[i].photo)
       ihtml+='<div class="photo"><a href="'+json[i].photo.medium+'"><img src="'+json[i].photo.small+'" alt="Photo"/></a></div>';
@@ -110,7 +110,7 @@ function juickParseThread(json) {
       ihtml+='<b>Attachment:</b> <a href="'+json[i].video.mp4+'">Video</a><br/>';
     ihtml+=juickFormatText(json[i].body);
     ihtml+='</div>';
-    
+
     var li=document.createElement("li");
     li.style.backgroundImage='url(http://i.juick.com/as/'+json[i].user.uid+'.png)';
     li.innerHTML=ihtml;
@@ -136,7 +136,7 @@ function juickFormatText(txt) {
 }
 
 function is_img(url){
-  var imgRegex = /\.(jpg|png|gif|jpeg|svg)(?:.large)?$/;
+  var imgRegex = /\.(jpg|png|gif|jpeg|svg)(?:[?#].+)?$/;
   return imgRegex.test(url);
 }
 
@@ -148,8 +148,9 @@ function classify(url){
     return 'youtube'
   } else if (/vimeo.com/.test(url)){
     return 'vimeo'
-  } else if (/gifv$/.test(url)) {
-    return 'embed_video'
+  } else if (/imgur.com/.test(url)) {
+    //return 'imgur'
+    return 'other'
   } else if (/coub.com/.test(url)){
     return 'coub'
   } else {
@@ -158,10 +159,10 @@ function classify(url){
 }
 
 function get_youtubeid(url){
-  
+
   if (url.indexOf('youtube.com') >= 0){
     var video_id = url.split('v=')[1];
-    
+
   } else if (url.indexOf('youtu.be') >= 0) {
     var s = url.split('/');
     var video_id = s[s.length-1];
@@ -182,7 +183,7 @@ function urlify(text) {
     });
   }
   var urlRegex = /(https?|ftp)(:\/\/[^\s()<>]+)/g;
-  
+
   return text.replace(urlRegex, function(url) {
     var cls = classify(url);
     if (cls == 'image'){
@@ -193,11 +194,18 @@ function urlify(text) {
     } else if (cls == 'coub') {
       var u = url.replace('view', 'embed')
       return '<iframe src="'+u+'?muted=false&autostart=false&originalSize=false&hideTopBar=false&startWithHD=false" allowfullscreen="true" frameborder="0" width="800" height="490"></iframe>';
-      
+
     } else if (cls == 'vimeo') {
       var vid = url.match(/\/(\d+)$/)[1];
       return '<iframe src="https://player.vimeo.com/video/'+vid+'" width="800" height="490" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
-    }else {
+    } else if (cls == 'imgur'){
+      console.log('IMGUR');
+      setTimeout(500, function(){
+        document.body.appendChild('<script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>');
+      })
+      return '<blockquote class="imgur-embed-pub" lang="en" data-id="shTqv5n"><a href="//imgur.com/shTqv5n">View post on imgur.com</a></blockquote>'
+      //return '<iframe src="http://imgur.com/shTqv5n/embed" scrolling="no" height="100%" class="imgur-embed-iframe-pub" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>'
+    } else {
       return '<a class="a_other" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     }
   })
