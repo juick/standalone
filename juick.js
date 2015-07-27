@@ -136,7 +136,7 @@ function juickFormatText(txt) {
 }
 
 function is_img(url){
-  var imgRegex = /\.(jpg|png|gif|jpeg|svg)(?:[?#].+)?$/;
+  var imgRegex = /\.(jpg|png|gif|jpeg|svg)((\?|:).+)?$/;
   return imgRegex.test(url);
 }
 
