@@ -128,7 +128,7 @@ function juickGetHashVar(variable) {
 }
 
 function juickFormatText(txt) {
-  console.log(txt);
+  //console.log(txt);
   //txt=txt.replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;");
   txt=txt.replace(/\n/g,"<br/>");
   txt = urlify(txt);
@@ -148,9 +148,9 @@ function classify(url){
     return 'youtube'
   } else if (/vimeo.com/.test(url)){
     return 'vimeo'
-  } else if (/imgur.com/.test(url)) {
-    //return 'imgur'
-    return 'other'
+  } else if (/^http:\/\/(?:i.)?imgur.com/.test(url)) {
+    return 'imgur'
+    //return 'other'
   } else if (/coub.com/.test(url)){
     return 'coub'
   } else {
@@ -173,6 +173,21 @@ function get_youtubeid(url){
     video_id = video_id.substring(0, ampersandPosition);
   }
   return video_id
+}
+
+function get_imgurid(url){
+  console.log(url);
+  var r = /imgur.com\/(?:gallery\/)?(\w+)(?:\..+)?/;
+  if (r.test(url)) {
+    var i = url.match(r)[1];
+    if (i.length >= 7){
+      return i;
+    } else {
+      return 'a/'+i;
+    }
+  } else {
+    return ''
+  }
 }
 
 function urlify(text) {
@@ -199,12 +214,18 @@ function urlify(text) {
       var vid = url.match(/\/(\d+)$/)[1];
       return '<iframe src="https://player.vimeo.com/video/'+vid+'" width="800" height="490" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
     } else if (cls == 'imgur'){
-      console.log('IMGUR');
-      setTimeout(500, function(){
-        document.body.appendChild('<script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>');
-      })
-      return '<blockquote class="imgur-embed-pub" lang="en" data-id="shTqv5n"><a href="//imgur.com/shTqv5n">View post on imgur.com</a></blockquote>'
-      //return '<iframe src="http://imgur.com/shTqv5n/embed" scrolling="no" height="100%" class="imgur-embed-iframe-pub" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>'
+      var iid = get_imgurid(url);
+      console.log('iid: ', iid);
+      var a = '<blockquote class="imgur-embed-pub" data-context="false" lang="en" data-id="' + iid + '"/>';
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.src = 'http://s.imgur.com/min/embed.js';
+      s.async = true;
+      setTimeout(function(){
+        console.info('Append ', s, ' to ', document.body);
+        document.body.appendChild(s);
+      }, 300);
+      return a
     } else {
       return '<a class="a_other" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     }
