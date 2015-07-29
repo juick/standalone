@@ -205,7 +205,7 @@ function urlify(text) {
       return '<a class="a_pic" href="' + url + '">' + '<img src="'+url+'"style="position: relative; margin: auto; max-width: 800px"/></a>';
     } else if (cls == 'youtube' && get_youtubeid(url)){
       var yid = get_youtubeid(url);
-      return '<iframe id="ytplayer" type="text/html" width="800" height="490" src="http://www.youtube.com/embed/'+yid+'" frameborder="0"/>';
+      return '<iframe id="ytplayer" type="text/html" width="800" height="490" src="http://www.youtube.com/embed/'+yid+'" frameborder="0"></iframe>';
     } else if (cls == 'coub') {
       var u = url.replace('view', 'embed')
       return '<iframe src="'+u+'?muted=false&autostart=false&originalSize=false&hideTopBar=false&startWithHD=false" allowfullscreen="true" frameborder="0" width="800" height="490"></iframe>';
