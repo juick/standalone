@@ -148,7 +148,7 @@ function classify(url){
     return 'youtube'
   } else if (/vimeo.com/.test(url)){
     return 'vimeo'
-  } else if (/^http:\/\/(?:i.)?imgur.com/.test(url)) {
+  } else if (/^https?:\/\/(?:i.)?imgur.com/.test(url)) {
     return 'imgur'
     //return 'other'
   } else if (/coub.com/.test(url)){
