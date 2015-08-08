@@ -216,7 +216,7 @@ function urlify(text) {
     } else if (cls == 'imgur'){
       var iid = get_imgurid(url);
       console.log('iid: ', iid);
-      var a = '<blockquote class="imgur-embed-pub" data-context="false" lang="en" data-id="' + iid + '"/>';
+      var a = '<blockquote class="imgur-embed-pub" lang="en" data-id="' + iid + '"/>';
       var s = document.createElement('script');
       s.type = 'text/javascript';
       s.src = 'http://s.imgur.com/min/embed.js';
