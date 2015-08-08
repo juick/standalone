@@ -132,6 +132,7 @@ function juickFormatText(txt) {
   //txt=txt.replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;");
   txt=txt.replace(/\n/g,"<br/>");
   txt = urlify(txt);
+  //console.log('After urlify: ', txt)
   return txt;
 }
 
@@ -191,9 +192,9 @@ function get_imgurid(url){
 }
 
 function urlify(text) {
-  var adimumUrlRegex = /<((https?|ftp)(:\/\/[^\s()<>]+))>/g;
-  if (adimumUrlRegex.test(text)){
-    text = text.replace(adimumUrlRegex, function(_, inner){
+  var adiumUrlRegex = /<((https?|ftp)(:\/\/[^\s()<>]+))>/g;
+  if (adiumUrlRegex.test(text)){
+    text = text.replace(adiumUrlRegex, function(_, inner){
       return ' '+inner+' '
     });
   }
@@ -216,7 +217,7 @@ function urlify(text) {
     } else if (cls == 'imgur'){
       var iid = get_imgurid(url);
       console.log('iid: ', iid);
-      var a = '<blockquote class="imgur-embed-pub" lang="en" data-id="' + iid + '"/>';
+      var a = '<blockquote class="imgur-embed-pub" lang="en" data-id="' + iid + '"></blockquote>';
       var s = document.createElement('script');
       s.type = 'text/javascript';
       s.src = 'http://s.imgur.com/min/embed.js';
