@@ -177,7 +177,7 @@ function get_youtubeid(url){
 
 function get_imgurid(url){
   console.log(url);
-  var r = /imgur.com\/(?:gallery\/)?(\w+)(?:\..+)?/;
+    var r = /imgur.com\/(?:gallery\/)?(?:a\/)?(\w+)(?:\..+)?/;
   if (r.test(url)) {
     var i = url.match(r)[1];
     if (i.length >= 7){
