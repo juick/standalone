@@ -81,7 +81,7 @@ function juickParseMessages(json) {
     nav+='">'+juickNewer+'</a>';
   }
   if(juickPage>1 && json.length==20) nav+=' &nbsp; ';
-  if(json.length==20) {
+  if(json.length>15) {
     nav+='<a href="#';
     if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
     nav+='page='+(juickPage+1);
