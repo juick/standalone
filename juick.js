@@ -1,12 +1,12 @@
 var juickTag;
-var juickPage;
+var juickLastMid;
 
 function juickInit(uname) {
   var message=juickGetHashVar("message");
   juickTag=juickGetHashVar("tag");
-  juickPage=juickGetHashVar("page");
-  if(juickPage) juickPage=parseInt(juickPage);
-  if(!juickPage || juickPage<1) juickPage=1;
+  juickLastMid=juickGetHashVar("before_mid");
+  if(juickLastMid) juickLastMid=parseInt(juickLastMid);
+  if(!juickLastMid || juickLastMid<0) juickLastMid=0;
 
   var msgs=document.getElementById("messages");
   while(msgs.hasChildNodes()) msgs.removeChild(msgs.lastChild);
@@ -23,7 +23,7 @@ function juickInit(uname) {
   } else {
     var url="http://api.juick.com/messages?uname="+uname;
     if(juickTag && juickTag!='') url+="&tag="+encodeURI(juickTag);
-    if(juickPage && juickPage>0) url+="&page="+juickPage;
+    if(juickLastMid && juickLastMid>0) url+="&before_mid="+juickLastMid;
     url+="&callback=juickParseMessages";
     juickLoadScript(url);
   }
@@ -40,7 +40,7 @@ function juickLoadScript(src) {
 function juickParseMessages(json) {
   var msgs=document.getElementById("messages");
   for(var i=0; i<json.length; i++) {
-
+    juickLastMid = parseInt(json[i].mid);
     var ts=json[i].timestamp.split(/[\-\s]/);
     var date=new Date(ts[0],ts[1]-1,ts[2]);
     var ihtml='<div class="date"><div class="day">'+date.getDate()+'</div><div class="month">'+date.getMonthName()+'</div></div>';
@@ -72,18 +72,13 @@ function juickParseMessages(json) {
   }
   
   var nav="";
-  if(juickPage && juickPage>1) {
-    nav+='<a href="#';
-    if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
-    if(juickPage>2) nav+='page='+(juickPage-1);
-    nav+='">'+juickNewer+'</a>';
-  }
-  if(juickPage>1 && json.length==20) nav+=' &nbsp; ';
-  if(json.length==20) {
-    nav+='<a href="#';
-    if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
-    nav+='page='+(juickPage+1);
-    nav+='">'+juickOlder+'</a>';
+  if(juickLastMid && juickLastMid>0) {
+    if(json.length==20) {
+      nav+='<a href="#';
+      if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
+      nav+='before_mid='+juickLastMid;
+      nav+='">'+juickOlder+'</a>';
+    }
   }
   if(nav!="") {
     document.getElementById("navigation").innerHTML=nav;
