@@ -1,0 +1,23 @@
+body { width: 512px; margin: 0 auto; font-family: sans-serif; }
+h1 { background: #F0F0F0; border-bottom: 1px solid #CCC; margin: 0 0 1em 0; padding: 0.5em; }
+img { border: 0; }
+a { color: #00C; }
+a:visited { color: #00C; }
+h1 a { color: #000; text-decoration: none; }
+h1 a:visited { color: #000; }
+#messages { list-style-type: none; margin: 0; padding: 0; }
+#messages li { margin-bottom: 2.5em; }
+#messages .date { float: left; width: 6em; margin-left: -8em; text-align: center; color: #999; }
+#messages .day { font-size: x-large; }
+#messages .photo { text-align: center; }
+#messages .text { margin: 0.5em 0; }
+#messages .replies { text-align: right; }
+#messages .tags { list-style-type: none; margin: 0 0 0 1em; padding: 0; float: left; }
+#messages .tags li { display: inline; margin-right: 0.5em; }
+#messages .tags a { color: #999; text-decoration: none; border-bottom: 1px dashed #999; }
+#replies { list-style-type: none; margin: 0; padding: 0; }
+#replies li { margin-bottom: 2.5em; background-repeat: no-repeat; padding-left: 42px; }
+#replies .username { font-size: larger; }
+#navigation { background: #F0F0F0; margin: 2em 0; padding: 5px; text-align: center; }
+#footer { margin: 2em 0 0 0; padding: 5px; font-size: small; text-align: center; }
+#footer a { color: #999; }

@@ -1,3 +1,11 @@
+Date.prototype.getMonthName = function() {
+  return ['Января','Февраля','Марта','Апреля','Мая','Июня','Июля','Августа','Сентября','Октября','Ноября','Декабря'][this.getMonth()];
+}
+var juickReplies="Ответов";
+var juickNewer="← Раньше";
+var juickOlder="Позже →";
+var juickName="ugnich";
+
 var juickTag;
 var juickLastMid;
 
