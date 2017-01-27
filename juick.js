@@ -143,6 +143,8 @@ function classify(url){
     return 'youtube'
   } else if (/vimeo.com/.test(url)){
     return 'vimeo'
+  } else if (/reddituploads/.test(url)) {
+    return 'image'
   } else if (/^https?:\/\/(?:i.)?imgur.com/.test(url)) {
     return 'imgur'
     //return 'other'
