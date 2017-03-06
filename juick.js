@@ -159,6 +159,8 @@ function classify(url){
     return 'coub'
   } else if (/twitter.com/.test(url)){
     return 'twitter'
+  } else if (/gfycat.com/.test(url)){
+    return 'media'
   } else {
     return 'other'
   }
@@ -212,6 +214,8 @@ function urlify(text) {
     } else if (cls == 'youtube' && get_youtubeid(url)){
       return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'coub') {
+      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
+    } else if (cls == 'media') {
       return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'vimeo') {
       return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
