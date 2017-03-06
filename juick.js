@@ -86,10 +86,10 @@ function juickParseMessages(json) {
     document.getElementById("navigation").innerHTML=nav;
     document.getElementById("navigation").style.display="block";
   }
-    $('.a_other').embedly({
+    $('.media').embedly({
         key: '28b3d1f4d2484dae8d8dc203320dd253',
         query: {
-            maxwidth: 530
+            maxwidth: 800
         }
     });
 }
@@ -143,7 +143,6 @@ function is_img(url){
 }
 
 function classify(url){
-    return 'other'
   if (is_img(url)){
     return 'image'
   } else if (/(youtube|youtu).(com|be)/.test(url)){
@@ -209,43 +208,17 @@ function urlify(text) {
   return text.replace(urlRegex, function(url) {
     var cls = classify(url);
     if (cls == 'image'){
-      return '<div class="div_a_pic"><a class="a_pic" href="' + url + '">' + '<img src="'+url+'"style="position: relative; margin: auto; max-width: 800px"/></a></div>';
+      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'youtube' && get_youtubeid(url)){
-      var yid = get_youtubeid(url);
-      return '<iframe id="ytplayer" type="text/html" width="800" height="490" src="http://www.youtube.com/embed/'+yid+'" frameborder="0"></iframe>';
+      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'coub') {
-      var u = url.replace('view', 'embed')
-      return '<iframe src="'+u+'?muted=false&autostart=false&originalSize=false&hideTopBar=false&startWithHD=false" allowfullscreen="true" frameborder="0" width="800" height="490"></iframe>';
-
+      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'vimeo') {
-      var vid = url.match(/\/(\d+)$/)[1];
-      return '<iframe src="https://player.vimeo.com/video/'+vid+'" width="800" height="490" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'imgur'){
-      var iid = get_imgurid(url);
-      console.log('iid: ', iid);
-      var a = '<blockquote class="imgur-embed-pub" lang="en" data-id="' + iid + '"></blockquote>';
-      var s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.src = 'http://s.imgur.com/min/embed.js';
-      s.async = true;
-      setTimeout(function(){
-        console.info('Append ', s, ' to ', document.body);
-        document.body.appendChild(s);
-      }, 300);
-      return a
+      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'twitter'){
-      var twid = url.match(/\/(\d+)$/)[1];
-      console.log('twid: ', twid);
-      var s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.src = 'https://platform.twitter.com/widgets.js';
-      s.async = true;
-      setTimeout(function(){
-        console.info('Append ', s, ' to ', document.body);
-        document.body.appendChild(s);
-      }, 300);
-
-      return '<div id="tweet" tweetID="'+twid+'"></div>'
+      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else {
       return '<a class="a_other" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     }
