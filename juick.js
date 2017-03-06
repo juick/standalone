@@ -224,7 +224,17 @@ function urlify(text) {
     } else if (cls == 'imgur'){
       return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'twitter'){
-      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
+      var twid = url.match(/\/(\d+)$/)[1];
+      console.log('twid: ', twid);
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.src = 'https://platform.twitter.com/widgets.js';
+      s.async = true;
+      setTimeout(function(){
+        console.info('Append ', s, ' to ', document.body);
+        document.body.appendChild(s);
+      }, 300);
+      return '<blockquote class="twitter-tweet"><a href="'+url+'"></a></blockquote>';
     } else {
       return '<a class="a_other" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     }
