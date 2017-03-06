@@ -150,6 +150,8 @@ function classify(url){
     //return 'other'
   } else if (/coub.com/.test(url)){
     return 'coub'
+  } else if (/twitter.com/.test(url)){
+    return 'twitter'
   } else {
     return 'other'
   }
@@ -223,6 +225,10 @@ function urlify(text) {
         document.body.appendChild(s);
       }, 300);
       return a
+    } else if (cls == 'twitter'){
+      var twid = url.match(/\/(\d+)$/)[1];
+      console.log('twid: ', twid);
+      return '<div id="tweet" tweetID="'+twid+'"></div>'
     } else {
       return '<a class="a_other" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     }
