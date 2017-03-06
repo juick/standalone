@@ -128,7 +128,6 @@ function juickParseThread(json) {
   replies.appendChild(disq);
   var disqus_config = function () {
   this.page.url = netneladno.ru;  // Replace PAGE_URL with your page's canonical URL variable
-  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
   };
   (function() { // DON'T EDIT BELOW THIS LINE
   var d = document, s = d.createElement('script');
@@ -231,9 +230,9 @@ function urlify(text) {
     if (cls == 'image'){
       return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'youtube' && get_youtubeid(url)){
-      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
+      var yid = get_youtubeid(url);
+      return '<iframe id="ytplayer" type="text/html" width="800" height="490" src="http://www.youtube.com/embed/'+yid+'" frameborder="0"></iframe>';
     } else if (cls == 'coub') {
-      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'media') {
       return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'vimeo') {
