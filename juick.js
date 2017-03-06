@@ -2,13 +2,6 @@ var juickTag;
 var juickLastMid;
 
 
-let titles = [
-  'Блог Русского Человека',
-  'Гордый Ковровчанин',
-  'Я мамина лапа',
-];
-
-
 function setRandomTopic() {
   var title = titles[Math.floor(Math.random()*titles.length)];
   console.log('New title: ' + title);
