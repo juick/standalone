@@ -146,7 +146,6 @@ function classify(url){
   if (is_img(url)){
     return 'image'
   } else if (/(youtube|youtu).(com|be)/.test(url)){
-    console.log('Return youtube: ', url)
     return 'youtube'
   } else if (/vimeo.com/.test(url)){
     return 'vimeo'
@@ -154,7 +153,6 @@ function classify(url){
     return 'image'
   } else if (/^https?:\/\/(?:i.)?imgur.com/.test(url)) {
     return 'imgur'
-    //return 'other'
   } else if (/coub.com/.test(url)){
     return 'coub'
   } else if (/twitter.com/.test(url)){
