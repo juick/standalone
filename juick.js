@@ -161,6 +161,8 @@ function classify(url){
     return 'twitter'
   } else if (/gfycat.com/.test(url)){
     return 'media'
+  } else if (/instagram.com\/p/.test(url)){
+    return 'media'
   } else {
     return 'other'
   }
