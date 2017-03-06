@@ -1,7 +1,22 @@
 var juickTag;
 var juickLastMid;
 
+
+let titles = [
+  'Блог Русского Человека',
+  'Гордый Ковровчанин',
+  'Я мамина лапа',
+];
+
+
+function setRandomTopic() {
+  var title = titles[Math.floor(Math.random()*titles.length)];
+  console.log('New title: ' + title);
+  $('#hdr-text').text(title);
+}
+
 function juickInit(uname) {
+  setRandomTopic();
   var message=juickGetHashVar("message");
   juickTag=juickGetHashVar("tag");
   juickLastMid=juickGetHashVar("before_mid");
@@ -27,7 +42,6 @@ function juickInit(uname) {
     url+="&callback=juickParseMessages";
     juickLoadScript(url);
   }
-
 }
 
 function juickLoadScript(src) {
