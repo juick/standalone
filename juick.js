@@ -27,6 +27,7 @@ function juickInit(uname) {
     url+="&callback=juickParseMessages";
     juickLoadScript(url);
   }
+
 }
 
 function juickLoadScript(src) {
@@ -85,6 +86,12 @@ function juickParseMessages(json) {
     document.getElementById("navigation").innerHTML=nav;
     document.getElementById("navigation").style.display="block";
   }
+    $('.a_other').embedly({
+        key: '28b3d1f4d2484dae8d8dc203320dd253',
+        query: {
+            maxwidth: 530
+        }
+    });
 }
 
 function juickParseThread(json) {
@@ -136,6 +143,7 @@ function is_img(url){
 }
 
 function classify(url){
+    return 'other'
   if (is_img(url)){
     return 'image'
   } else if (/(youtube|youtu).(com|be)/.test(url)){
