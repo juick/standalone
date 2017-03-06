@@ -72,9 +72,7 @@ function juickParseMessages(json) {
 
 
 
-    var replies=json[i].replies;
-    if(!replies) replies=0;
-    ihtml+='<div class="replies"><a href="#message='+json[i].mid+'">'+juickReplies+': '+replies+'</a></div>';
+    ihtml+='<div class="replies"><a href="#message='+json[i].mid+'">'+juickReplies+'</a></div>';
 
     var li=document.createElement("li");
     li.innerHTML=ihtml;
