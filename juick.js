@@ -30,7 +30,7 @@ function juickInit(uname) {
     var url="http://api.juick.com/thread?mid="+message+"&callback=juickParseThread";
     juickLoadScript(url);
   } else {
-    var url="http://api.juick.com/messages?uname="+uname;
+    var url="http://api.juick.com/messages?uname="+uname+"&withrecommended=1";
     if(juickTag && juickTag!='') url+="&tag="+encodeURI(juickTag);
     if(juickLastMid && juickLastMid>0) url+="&before_mid="+juickLastMid;
     url+="&callback=juickParseMessages";
