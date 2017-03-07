@@ -152,6 +152,9 @@ function addDisquss(parent, mid) {
 
 function juickGetHashVar(variable) {
   var query=window.location.hash.substring(1);
+  if (query[0] == '!' && variable == 'message') {
+    return query.substring(1);
+  }
   var vars=query.split("&");
   for(var i=0; i<vars.length; i++) {
     var pair=vars[i].split("=");
