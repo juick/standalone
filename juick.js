@@ -104,8 +104,8 @@ function juickParseMessages(json) {
   }
 
   var nav="";
-  if(juickLastMid>0 && json.length==20) nav+=' &nbsp; ';
-  if(json.length>0) {
+  if(juickLastMid>0 && json.length==20) nav+='<a href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a>';
+  if(json.length>=1 && daysback>0) {
     nav+='<a href="#';
     if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
     nav+='before_mid='+(juickLastMid);
