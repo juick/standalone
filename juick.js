@@ -52,7 +52,7 @@ function juickParseMessages(json) {
     juickLastMid = json[i].mid;
     var ts=json[i].timestamp.split(/[\-\s]/);
     var date=new Date(ts[0],ts[1]-1,ts[2]);
-    var ihtml='<div class="date"><div class="day">'+date.getDate()+'</div><div class="month">'+date.getMonthName()+'</div><div class="year">'+(1900+date.getYear())+'</div></div>';
+    var ihtml='';
 
     if(json[i].tags) {
       ihtml+='<div><ul class="tags">';
@@ -71,10 +71,11 @@ function juickParseMessages(json) {
     ihtml+=juickFormatText(json[i].body);
     ihtml+='</div>';
 
+    ihtml+='<div class="meta"><span class="timestamp">'+date.getDate()+' '+date.getMonthName()+' '+(1900+date.getYear())+'</span>';
 
     if (!juickGetHashVar("message")) {
-      ihtml+='<div class="replies"><a href="#message='+json[i].mid+'">'+juickReplies+'</a></div>';
-    }
+      ihtml+='<span class="replies"><a href="#message='+json[i].mid+'">'+juickReplies+'</a></span></div>';
+    } else { ihtml+='</div>' }
 
     var li=document.createElement("li");
     li.innerHTML=ihtml;
