@@ -220,8 +220,6 @@ function classify(url){
     return 'media'
   } else if (/instagram.com\/p/.test(url)){
     return 'media'
-  } else if (/rutube.ru/.test(url)){
-    return 'media'
   } else {
     return 'other'
   }
