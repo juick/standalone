@@ -1,6 +1,6 @@
 var juickTag;
 var juickLastMid;
-
+var daysback;
 
 function setRandomTopic() {
   var title = titles[Math.floor(Math.random()*titles.length)];
@@ -12,6 +12,7 @@ function juickInit(uname) {
   setRandomTopic();
   initDisquss();
   var message=juickGetHashVar("message");
+  daysback=juickGetHashVar("daysback");
   juickTag=juickGetHashVar("tag");
   juickLastMid=juickGetHashVar("before_mid");
   if(juickLastMid) juickLastMid=parseInt(juickLastMid);
@@ -28,6 +29,10 @@ function juickInit(uname) {
     nodes[i].parentNode.removeChild(nodes[i]);
   if(message && message>0) {
     var url="http://api.juick.com/thread?mid="+message+"&callback=juickParseThread";
+    juickLoadScript(url);
+  } else if (daysback) {
+    var url = "http://api.juick.com/messages?uname="+uname+"&daysback="+daysback;
+    url+="&callback=juickParseMessages";
     juickLoadScript(url);
   } else {
     var url="http://api.juick.com/messages?uname="+uname+"&withrecommended=1";
@@ -83,13 +88,24 @@ function juickParseMessages(json) {
 
     var li=document.createElement("li");
     li.innerHTML=ihtml;
+
+    if (currdate != prevdate & prevdate != '' & !(daysback>0)) {
+      var pts=json[i-1].timestamp.split(/[\-\s]/);
+      var pdate=new Date(pts[0],pts[1]-1,pts[2]).getTime();
+      now=new Date().getTime();
+      timehopoffset=Math.floor((now-pdate)/1000/3600/24) + 365;
+
+      var timehop=document.createElement("li");
+      timehop.innerHTML='<div class="timehop"><a href="#daysback='+timehopoffset+'">Этот день год назад.</a></div>';
+      msgs.appendChild(timehop);
+    }
     msgs.appendChild(li);
     prevdate=currdate;
   }
 
   var nav="";
   if(juickLastMid>0 && json.length==20) nav+=' &nbsp; ';
-  if(json.length>15) {
+  if(json.length>0) {
     nav+='<a href="#';
     if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
     nav+='before_mid='+(juickLastMid);
