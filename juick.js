@@ -4,7 +4,7 @@ var juickLastMid;
 
 function setRandomTopic() {
   var title = titles[Math.floor(Math.random()*titles.length)];
-  console.log('New title: ' + title);
+  // console.log('New title: ' + title);
   $('#hdr-text').text(title);
 }
 
@@ -48,11 +48,13 @@ function juickLoadScript(src) {
 
 function juickParseMessages(json) {
   var msgs=document.getElementById("messages");
+  var prevdate='';
   for(var i=0; i<json.length; i++) {
     juickLastMid = json[i].mid;
     var ts=json[i].timestamp.split(/[\-\s]/);
     var date=new Date(ts[0],ts[1]-1,ts[2]);
     var ihtml='';
+    var currdate=date.getDate()+' '+date.getMonthName()+' '+(1900+date.getYear());
 
     if(json[i].tags) {
       ihtml+='<div><ul class="tags">';
@@ -71,15 +73,18 @@ function juickParseMessages(json) {
     ihtml+=juickFormatText(json[i].body);
     ihtml+='</div>';
 
-    ihtml+='<div class="meta"><span class="timestamp">'+date.getDate()+' '+date.getMonthName()+' '+(1900+date.getYear())+'</span>';
+    if (currdate != prevdate) {
+      ihtml+='<div class="meta"><span class="timestamp">'+currdate+'</span>';
+    } else { ihtml += '<div class="meta">'; }
 
     if (!juickGetHashVar("message")) {
       ihtml+='<span class="replies"><a href="#message='+json[i].mid+'">'+juickReplies+'</a></span></div>';
-    } else { ihtml+='</div>' }
+    } else { ihtml+='</div>'; }
 
     var li=document.createElement("li");
     li.innerHTML=ihtml;
     msgs.appendChild(li);
+    prevdate=currdate;
   }
 
   var nav="";
@@ -220,7 +225,7 @@ function get_youtubeid(url){
 }
 
 function get_imgurid(url){
-  console.log(url);
+  // console.log(url);
     var r = /imgur.com\/(?:gallery\/)?(?:a\/)?(\w+)(?:\..+)?/;
   if (r.test(url)) {
     var i = url.match(r)[1];
@@ -260,7 +265,7 @@ function urlify(text) {
       return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'twitter'){
       var twid = url.match(/\/(\d+)$/)[1];
-      console.log('twid: ', twid);
+      // console.log('twid: ', twid);
       var s = document.createElement('script');
       s.type = 'text/javascript';
       s.src = 'https://platform.twitter.com/widgets.js';
