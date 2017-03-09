@@ -110,6 +110,8 @@ function juickParseMessages(json) {
     if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
     nav+='before_mid='+(juickLastMid);
     nav+='">'+juickOlder+'</a>';
+  } else if (daysback>0) {
+    nav='<div class="timehop"><a href="#daysback='+(parseInt(daysback)+1)+'">Пожалуй надо еще денек отмотать!</a></div>'
   }
   if(nav!="") {
     document.getElementById("navigation").innerHTML=nav;
