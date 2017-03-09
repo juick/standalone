@@ -105,7 +105,7 @@ function juickParseMessages(json) {
 
   var nav="";
   if(juickLastMid>0 && json.length==20) nav+=' &nbsp; ';
-  if(json.length>1 && daysback>0) {
+  if(json.length>0) {
     nav+='<a href="#';
     if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
     nav+='before_mid='+(juickLastMid);
@@ -197,7 +197,7 @@ function juickFormatText(txt) {
 }
 
 function is_img(url){
-  var imgRegex = /\.(jpg|png|gif|jpeg|svg)((\?|:).+)?$/i;
+  var imgRegex = /\.(jpg|png|gif|jpeg|svg)((\?|:).+)?$/;
   return imgRegex.test(url);
 }
 
