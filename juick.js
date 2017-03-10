@@ -81,13 +81,11 @@ function juickParseMessages(json) {
     ihtml+=juickFormatText(json[i].body);
     ihtml+='</div>';
 
-    if (currdate != prevdate) {
-      ihtml+='<div class="meta"><span class="timestamp">'+currdate+'</span>';
-    } else { ihtml += '<div class="meta">'; }
+    ihtml+='<div class="meta"><span class="timestamp">';
 
     if (!juickGetHashVar("message")) {
-      ihtml+='<span class="replies"><a href="#message='+json[i].mid+'">'+juickReplies+'</a></span></div>';
-    } else { ihtml+='</div>'; }
+      ihtml+='<a href="#message='+json[i].mid+'">'+currdate+'</a></span></div>';
+    } else { ihtml+=currdate+'</span></div>'; }
 
     ihtml+='</div>'
 
