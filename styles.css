@@ -112,16 +112,22 @@ h1 a:visited {
 
 #navigation .bottomnav {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    height: 50px;
 }
 
 #navigation .bottomnav .random {
-    align-self: left;
+    flex: 0;
+}
+
+#navigation .bottomnav .random a img {
+    position: absolute;
 }
 
 #navigation .bottomnav .next {
-    float: left;
-    margin-top: 12px;
+    align-self: center;
+    text-align: center;
+    flex: 1;
 }
 
 #footer {
