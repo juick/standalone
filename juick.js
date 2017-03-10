@@ -108,20 +108,20 @@ function juickParseMessages(json) {
     prevdate=currdate;
   }
 
-  var nav="";
-  if (juickLastMid>0 && json.length>=15) {
-    var random_mid = (Math.floor(Math.random()*(maxMid-427988+1)+427988));
-    nav+='<div class=bottomnav><span class="random"><a href="#before_mid='+random_mid+'"><img src="rsz_shuffle.png"></a></span><span class="next"><a href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a></span></div>';
-  }
+  var random_mid = (Math.floor(Math.random()*(maxMid-427988+1)+427988));
+  var nav='<div class=bottomnav><span class="random"><a href="#before_mid='+random_mid+'"><img src="rsz_shuffle.png"></a></span>';
 
-  if(json.length>=1 && daysback>0) {
-    nav+='<span class="next"><a href="#';
-    if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
-    nav+='before_mid='+(juickLastMid);
-    nav+='">'+juickOlder+'</a></span>';
+  if (juickGetHashVar("before_mid") || (!window.location.hash)) {
+    nav+='<span class="next"><a href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a></span>';
+  } else if (juickTag && juickTag!='') {
+    nav+='<span class="next"><a href="#tag='+juickTag+'&before_mid='+(juickLastMid)+'">'+juickOlder+'</a></span>';
+  } else if(json.length>=1 && daysback>0) {
+    nav+='<span class="next"><a href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a></span>';
   } else if (daysback>0) {
-    nav='<div class="timehop"><a class="next" href="#daysback='+(parseInt(daysback)+1)+'">Пожалуй надо еще денек отмотать!</a></div>'
+    nav='<div class="timehop"><a class="next" href="#daysback='+(parseInt(daysback)+1)+'">Пожалуй надо еще денек отмотать!</a></div>';
   }
+  nav+='</div>';
+
   if(nav!="") {
     document.getElementById("navigation").innerHTML=nav;
     document.getElementById("navigation").style.display="block";
