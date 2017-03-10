@@ -106,12 +106,12 @@ function juickParseMessages(json) {
   }
 
   var nav="";
-  if(juickLastMid>0 && json.length>=15) nav+='<a class="next" href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a>';
+  if(juickLastMid>0 && json.length>=15) nav+='<div class=bottomnav><span class="random"><a href="#before_mid='+(Math.floor(Math.random()*(juickLastMid-427988+1)+427988))+'">Дна нет.</a></span><span class="next"><a href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a></span></div>';
   if(json.length>=1 && daysback>0) {
-    nav+='<a class="next" href="#';
+    nav+='<span class="next"><a href="#';
     if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
     nav+='before_mid='+(juickLastMid);
-    nav+='">'+juickOlder+'</a>';
+    nav+='">'+juickOlder+'</a></span>';
   } else if (daysback>0) {
     nav='<div class="timehop"><a class="next" href="#daysback='+(parseInt(daysback)+1)+'">Пожалуй надо еще денек отмотать!</a></div>'
   }

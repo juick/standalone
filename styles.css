@@ -108,8 +108,16 @@ h1 a:visited {
     background: #F0F0F0;
     margin: 2em 0;
     padding: 5px;
-    text-align: center;
 }
+
+#navigation .bottomnav .random {
+    float: left;
+}
+
+#navidation .bottomnav .next {
+    float: center;
+}
+
 #footer {
     margin: 2em 0 0 0;
     padding: 5px;
