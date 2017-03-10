@@ -106,7 +106,11 @@ function juickParseMessages(json) {
   }
 
   var nav="";
-  if(juickLastMid>0 && json.length>=15) nav+='<div class=bottomnav><span class="random"><a href="#before_mid='+(Math.floor(Math.random()*(juickLastMid-427988+1)+427988))+'"><img src="rsz_shuffle.png"></a></span><span class="next"><a href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a></span></div>';
+  if (juickLastMid>0 && json.length>=15) {
+    var random_mid = (Math.floor(Math.random()*(juickLastMid-427988+1)+427988));
+    nav+='<div class=bottomnav><span class="next"><a href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a></span><span class="random"><a href="#before_mid='+random_mid+'"><img src="rsz_shuffle.png"></a></span></div>';
+  }
+
   if(json.length>=1 && daysback>0) {
     nav+='<span class="next"><a href="#';
     if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';

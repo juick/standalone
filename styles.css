@@ -110,12 +110,19 @@ h1 a:visited {
     padding: 5px;
 }
 
-#navigation .bottomnav .random {
-    float: left;
+#navigation .bottomnav {
+    display: flex;
+    justify-content: space-between;
 }
 
-#navidation .bottomnav .next {
-    text-align: center;
+#navigation .bottomnav .random {
+    align-self: right;
+}
+
+#navigation .bottomnav .next {
+    width: 50%;
+    text-align: end;
+    margin-top: 12px;
 }
 
 #footer {
