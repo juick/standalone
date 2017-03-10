@@ -58,7 +58,7 @@ function juickParseMessages(json) {
     juickLastMid = json[i].mid;
     var ts=json[i].timestamp.split(/[\-\s]/);
     var date=new Date(ts[0],ts[1]-1,ts[2]);
-    var ihtml='';
+    var ihtml='<div class=post id='+juickLastMid+'>';
     var currdate=date.getDate()+' '+date.getMonthName()+' '+(1900+date.getYear());
 
     if(json[i].tags) {
@@ -86,6 +86,8 @@ function juickParseMessages(json) {
       ihtml+='<span class="replies"><a href="#message='+json[i].mid+'">'+juickReplies+'</a></span></div>';
     } else { ihtml+='</div>'; }
 
+    ihtml+='</div>'
+
     var li=document.createElement("li");
     li.innerHTML=ihtml;
 
@@ -104,14 +106,14 @@ function juickParseMessages(json) {
   }
 
   var nav="";
-  if(juickLastMid>0 && json.length==20) nav+='<a href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a>';
+  if(juickLastMid>0 && json.length>=15) nav+='<a class="next" href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a>';
   if(json.length>=1 && daysback>0) {
-    nav+='<a href="#';
+    nav+='<a class="next" href="#';
     if(juickTag && juickTag!='') nav+='tag='+juickTag+'&';
     nav+='before_mid='+(juickLastMid);
     nav+='">'+juickOlder+'</a>';
   } else if (daysback>0) {
-    nav='<div class="timehop"><a href="#daysback='+(parseInt(daysback)+1)+'">Пожалуй надо еще денек отмотать!</a></div>'
+    nav='<div class="timehop"><a class="next" href="#daysback='+(parseInt(daysback)+1)+'">Пожалуй надо еще денек отмотать!</a></div>'
   }
   if(nav!="") {
     document.getElementById("navigation").innerHTML=nav;
@@ -123,6 +125,25 @@ function juickParseMessages(json) {
       maxwidth: 800
     }
   });
+
+//   $(function () {
+//     var currentHash = "#";
+//     var blocksArr = $('.post');
+
+//     $(document).scroll(function () {
+//       var currentTop = window.pageYOffset/1;
+//       for (var i=1; i < blocksArr.length; i++){
+//         var currentElementTop = $(blocksArr[i]).offset().top;
+//         var hash = '#before_mid='+$(blocksArr[i]).attr('id');
+//           if (currentElementTop < currentTop && currentTop < currentElementTop + $(blocksArr[i]).height() && currentHash!=hash){
+//             history.pushState(null, null, hash);
+//            }  else {
+//             history.pushState(null, null, hash);
+//            }
+//         currentHash = hash;
+//       }
+//     });
+//   });
 }
 
 function juickParseThread(json) {
