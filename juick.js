@@ -1,6 +1,7 @@
 var juickTag;
 var juickLastMid;
 var daysback;
+var maxMid=0;
 
 function setRandomTopic() {
   var title = titles[Math.floor(Math.random()*titles.length)];
@@ -56,6 +57,8 @@ function juickParseMessages(json) {
   var prevdate='';
   for(var i=0; i<json.length; i++) {
     juickLastMid = json[i].mid;
+    if (maxMid < juickLastMid) maxMid=parseInt(juickLastMid);
+
     var ts=json[i].timestamp.split(/[\-\s]/);
     var date=new Date(ts[0],ts[1]-1,ts[2]);
     var ihtml='<div class=post id='+juickLastMid+'>';
@@ -107,7 +110,7 @@ function juickParseMessages(json) {
 
   var nav="";
   if (juickLastMid>0 && json.length>=15) {
-    var random_mid = (Math.floor(Math.random()*(juickLastMid-427988+1)+427988));
+    var random_mid = (Math.floor(Math.random()*(maxMid-427988+1)+427988));
     nav+='<div class=bottomnav><span class="random"><a href="#before_mid='+random_mid+'"><img src="rsz_shuffle.png"></a></span><span class="next"><a href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a></span></div>';
   }
 
