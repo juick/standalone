@@ -119,7 +119,7 @@ function juickParseMessages(json) {
   var topnavdiv=document.createElement("div");
   topnavdiv.className="topnavbutton";
   topnavdiv.innerHTML=topnav;
-  document.getElementById("topnav").appendChild(topnavdiv);
+  // document.getElementById("topnav").appendChild(topnavdiv);
 
 
   if (juickGetHashVar("before_mid") || (!window.location.hash)) {
