@@ -139,22 +139,22 @@ function juickParseMessages(json) {
     }
   });
 
-  $(function () {
-    var currentHash = "#";
-    var blocksArr = $('.post');
+  // $(function () {
+  //   var currentHash = "#";
+  //   var blocksArr = $('.post');
 
-    $(document).scroll(function () {
-      var currentTop = window.pageYOffset/1;
-      for (var i=0; i < blocksArr.length; i++){
-        var currentElementTop = $(blocksArr[i]).offset().top;
-        var hash = '#before_mid='+$(blocksArr[i-1]).attr('id');
-        if (currentElementTop < currentTop && currentTop < currentElementTop + $(blocksArr[i]).height() && currentHash!=hash && i>0){
-          history.pushState(null, null, hash);
-        }
-        currentHash = hash;
-      }
-    });
-  });
+  //   $(document).scroll(function () {
+  //     var currentTop = window.pageYOffset/1;
+  //     for (var i=0; i < blocksArr.length; i++){
+  //       var currentElementTop = $(blocksArr[i]).offset().top;
+  //       var hash = '#before_mid='+$(blocksArr[i-1]).attr('id');
+  //       if (currentElementTop < currentTop && currentTop < currentElementTop + $(blocksArr[i]).height() && currentHash!=hash && i>0){
+  //         history.pushState(null, null, hash);
+  //       }
+  //       currentHash = hash;
+  //     }
+  //   });
+  // });
 }
 
 function juickParseThread(json) {
