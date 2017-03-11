@@ -92,24 +92,14 @@ function juickParseMessages(json) {
     var li=document.createElement("li");
     li.innerHTML=ihtml;
 
-    $.ajaxSetup({
-        async: false
-    });
+    msgs.appendChild(li);
     if (currdate != prevdate & prevdate != '' & !(daysback>0)) {
       var pts=json[i-1].timestamp.split(/[\-\s]/);
       var pdate=new Date(pts[0],pts[1]-1,pts[2]).getTime();
       now=new Date().getTime();
       timehopoffset=Math.floor((now-pdate)/1000/3600/24) + 365;
-      var durl = "http://api.juick.com/messages?uname="+juickName+"&daysback="+timehopoffset;
-      $.getJSON( durl).done(function( data ) {
-        if (data.length>0) {
-          var timehop=document.createElement("li");
-          timehop.innerHTML='<div class="timehop"><a href="#daysback='+timehopoffset+'">Этот день год назад.</a></div>';
-          msgs.appendChild(timehop);
-        }
-      });
+      insertTimehop(json[i-1].mid, timehopoffset);
     }
-    msgs.appendChild(li);
     prevdate=currdate;
   }
 
@@ -157,6 +147,20 @@ function juickParseMessages(json) {
   //     }
   //   });
   // });
+}
+
+function insertTimehop(id, daysback) {
+  console.log(id);
+  var durl = "http://api.juick.com/messages?uname="+juickName+"&daysback="+daysback;
+  console.log(durl);
+  $.getJSON( durl).done(function( data ) {
+    if (data.length>0) {
+      console.log(data);
+      var timehop=document.createElement("li");
+      timehop.innerHTML='<div class="timehop"><a href="#daysback='+daysback+'">Этот день год назад.</a></div>';
+      $('#'+id).parent().after(timehop);
+    }
+  });
 }
 
 function juickParseThread(json) {
