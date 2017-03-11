@@ -24,18 +24,17 @@ h1 a:visited {
 #topnav {
     background: #F0F0F0;
     border-bottom: 1px solid #CCC;
-    margin: 0 0 1em 0;
-    padding: 0.5em;
-    /*display: flex;*/
-    /*justify-content: right;*/
+    margin: 0 0 2em 0;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
     height: 50px;
     overflow:auto;
 }
-#topnav hdr {
-    float:left;
+#topnav #hdr {
+    align-self: center;
 }
-#topnav topnavbutton {
-    float: right;
+#topnav .topnavbutton {
 }
 #messages {
     list-style-type: none;
