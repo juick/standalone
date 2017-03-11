@@ -301,7 +301,7 @@ function urlify(text) {
   return text.replace(urlRegex, function(url) {
     var cls = classify(url);
   if (cls == 'image'){
-      return '<div class="div_a_pic"><a class="a_pic" href="' + url + '">' + '<img src="'+url+'"style="position: relative; margin: auto;"/></a></div>';
+      return '<div class="div_a_pic"><a class="a_pic" href="' + url + '">' + '<img src="'+url+'"style="position: relative; margin: auto;" onerror="this.parentNode.parentNode.parentNode.parentNode.style.display=\'none\';"/></a></div>';
     } else if (cls == 'youtube' && get_youtubeid(url)){
       var yid = get_youtubeid(url);
       var width = window.innerWidth <= 800? window.innerWidth : 800;
