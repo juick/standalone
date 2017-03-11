@@ -115,6 +115,12 @@ function juickParseMessages(json) {
 
   var random_mid = (Math.floor(Math.random()*(maxMid-427988+1)+427988));
   var nav='<div class=bottomnav><span class="random"><a href="#before_mid='+random_mid+'"><img src="rsz_shuffle.png"></a></span>';
+  var topnav='<a href="#before_mid='+random_mid+'"><img src="rsz_shuffle.png"></a>';
+  var topnavdiv=document.createElement("div");
+  topnavdiv.className="topnavbutton";
+  topnavdiv.innerHTML=topnav;
+  document.getElementById("topnav").appendChild(topnavdiv);
+
 
   if (juickGetHashVar("before_mid") || (!window.location.hash)) {
     nav+='<span class="next"><a href="#before_mid='+(juickLastMid)+'">'+juickOlder+'</a></span>';
