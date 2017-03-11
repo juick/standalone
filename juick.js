@@ -102,9 +102,6 @@ function juickParseMessages(json) {
       timehopoffset=Math.floor((now-pdate)/1000/3600/24) + 365;
       var durl = "http://api.juick.com/messages?uname="+juickName+"&daysback="+timehopoffset;
       $.getJSON( durl).done(function( data ) {
-        console.log(i);
-        console.log(durl);
-        console.log(data);
         if (data.length>0) {
           var timehop=document.createElement("li");
           timehop.innerHTML='<div class="timehop"><a href="#daysback='+timehopoffset+'">Этот день год назад.</a></div>';
