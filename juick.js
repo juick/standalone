@@ -92,13 +92,16 @@ function juickParseMessages(json) {
     var li=document.createElement("li");
     li.innerHTML=ihtml;
 
+    $.ajaxSetup({
+        async: false
+    });
     if (currdate != prevdate & prevdate != '' & !(daysback>0)) {
       var pts=json[i-1].timestamp.split(/[\-\s]/);
       var pdate=new Date(pts[0],pts[1]-1,pts[2]).getTime();
       now=new Date().getTime();
       timehopoffset=Math.floor((now-pdate)/1000/3600/24) + 365;
       var durl = "http://api.juick.com/messages?uname="+juickName+"&daysback="+timehopoffset;
-      $.getJSON( durl, function( data ) {
+      $.getJSON( durl).done(function( data ) {
         console.log(i);
         console.log(durl);
         console.log(data);
