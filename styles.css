@@ -41,18 +41,17 @@ h1 a:visited {
     color: #999;
     text-align: right;
 }
-#messages .meta .date {
-    float: left;
+#messages .meta .timestamp {
     font-size: 14px;
-    margin: 5px 0 0;
+    margin: 10px 10px 0;
     color: #999;
 }
-#messages .meta .replies {
+/*#messages .meta .replies {
     float: right;
     font-size: 14px;
     color: #999;
 }
-#messages .day {
+*/#messages .day {
     font-size: x-large;
 }
 #messages .photo {
