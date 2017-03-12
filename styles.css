@@ -29,7 +29,7 @@ h1 a:visited {
     display: flex;
     justify-content: space-between;
     height: 50px;
-    overflow:auto;
+    overflow:hidden;
 }
 #topnav #hdr {
     align-self: center;
