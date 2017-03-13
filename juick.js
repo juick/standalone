@@ -258,6 +258,8 @@ function classify(url){
     return 'media'
   } else if (/instagram.com\/p/.test(url)){
     return 'media'
+  } else if (/\.(mp4|webm)$/.test(url)) {
+    return 'video'
   } else {
     return 'other'
   }
@@ -321,6 +323,10 @@ function urlify(text) {
       return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'imgur'){
       return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
+    } else if (cls == 'video') {
+      var width = window.innerWidth <= 800? window.innerWidth : 800;
+      var height = width*0.6125;
+      return '<video width="'+width+'" height="'+height+'" controls> <source src="'+url+'" type="video/mp4"></video>';
     } else if (cls == 'twitter'){
       var twid = url.match(/\/(\d+)$/)[1];
       // console.log('twid: ', twid);
