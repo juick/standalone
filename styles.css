@@ -28,13 +28,15 @@ h1 a:visited {
     padding: 5px;
     display: flex;
     justify-content: space-between;
-    height: 50px;
+    min-height: 30px;
     overflow:hidden;
 }
 #topnav #hdr {
+    margin: 0;
     align-self: center;
 }
-#topnav .topnavbutton {
+#topnav #topnavbutton {
+    align-self: center;
 }
 #messages {
     list-style-type: none;
