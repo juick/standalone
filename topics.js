@@ -15,4 +15,5 @@ let titles = [
   'Cancerville',
   'Ain\'t I what the whole world wants to be',
   'A child driving an adult body',
+  'Не показывай коллегам',
 ];
