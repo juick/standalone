@@ -124,12 +124,12 @@ function juickParseMessages(json) {
     document.getElementById("navigation").style.display="block";
   }
   var width = window.innerWidth <= 800? window.innerWidth : 800;
-  $('.media').embedly({
-    key: '28b3d1f4d2484dae8d8dc203320dd253',
-    query: {
-      maxwidth: width
-    }
-  });
+  // $('.media').embedly({
+  //   key: '28b3d1f4d2484dae8d8dc203320dd253',
+  //   query: {
+  //     maxwidth: width
+  //   }
+  // });
 
   // $(function () {
   //   var currentHash = "#";
