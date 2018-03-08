@@ -255,7 +255,7 @@ function classify(url){
   } else if (/twitter.com/.test(url)){
     return 'twitter'
   } else if (/gfycat.com/.test(url)){
-    return 'media'
+    return 'gfycat'
   } else if (/instagram.com\/p/.test(url)){
     return 'media'
   } else if (/\.(mp4|webm)$/.test(url)) {
@@ -322,7 +322,11 @@ function urlify(text) {
     } else if (cls == 'vimeo') {
       return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
     } else if (cls == 'imgur'){
-      return '<a class="media" href="' + url + '">'+decodeURIComponent(url)+'</a>';
+      return `<a class="media" href="${url}">${decodeURIComponent(url)}</a>`;
+    } else if (cls == 'gfycat') {
+      window.setTimeout(() => gfyCollection.init(), 100);
+      let data_id = url.match(/gfycat.com\/(.*)/)[1]
+      return `<div class='gfyitem' data-autoplay="true" data-id='${data_id}'></div>`;
     } else if (cls == 'video') {
       var width = window.innerWidth <= 800? window.innerWidth : 800;
       var height = width*0.6125;
