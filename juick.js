@@ -26,23 +26,21 @@ function juickInit(uname) {
   for(var i=0; i<nodes.length; i++)
     nodes[i].parentNode.removeChild(nodes[i]);
   if(message && message>0) {
-    var url="http://api.juick.com/thread?mid="+message+"&callback=juickParseThread";
-    juickLoadScript(url);
+    var url="http://api.juick.com/thread?mid="+message;
+    juickLoadScript(url, juickParseThread);
   } else {
     var url="http://api.juick.com/messages?uname="+uname;
     if(juickTag && juickTag!='') url+="&tag="+encodeURI(juickTag);
     if(juickLastMid && juickLastMid>0) url+="&before_mid="+juickLastMid;
-    url+="&callback=juickParseMessages";
-    juickLoadScript(url);
+    juickLoadScript(url, juickParseMessages);
   }
 }
 
-function juickLoadScript(src) {
-  var scripttag=document.createElement("script");
-  scripttag.setAttribute("type","text/javascript");
-  scripttag.setAttribute("src",src);
-  scripttag.setAttribute("class","loadScript");
-  document.getElementsByTagName("head")[0].appendChild(scripttag); 
+function juickLoadScript(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, false);
+    xhr.send();
+    callback(JSON.parse(xhr.responseText));
 }
 
 function juickParseMessages(json) {
